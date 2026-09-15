@@ -17,21 +17,14 @@ export default function Create() {
 
             <div className="py-12">
                 <div className="mx-auto max-w-3xl sm:px-6 lg:px-8">
-                    <div className="overflow-hidden bg-white shadow-sm dark:bg-gray-800 sm:rounded-lg">
+                    <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                         <div className="p-6">
-                            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-                                Create New Team
-                            </h1>
+                            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Create New Team</h1>
 
-                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                Create a team to collaborate with others on projects.
-                            </p>
+                            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Create a team to collaborate with others on projects.</p>
 
                             <div className="mt-6">
-                                <TeamForm
-                                    submitRoute="teams.store"
-                                    method="post"
-                                />
+                                <TeamForm submitRoute="teams.store" method="post" />
                             </div>
                         </div>
                     </div>

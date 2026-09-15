@@ -9,7 +9,7 @@ class StoreTeamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     * 
+     *
      * This is where you put authorization logic.
      * Return true if the user can make this request, false otherwise.
      */
@@ -32,11 +32,11 @@ class StoreTeamRequest extends FormRequest
                 // This ensures the team name is unique for this user
                 Rule::unique('teams')->where(function ($query) {
                     return $query->where('user_id', $this->user()->id);
-                })
-            ]
+                }),
+            ],
         ];
     }
-    
+
     /**
      * Custom error messages for validation failures.
      * This improves user experience with friendly messages.

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -51,8 +52,8 @@ class User extends Authenticatable
     public function teams(): BelongsToMany
     {
         return $this->belongsToMany(Team::class, 'team_user')
-                    ->withPivot('role')
-                    ->withTimestamps();
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     // NEW: Helper method to check team membership
@@ -60,15 +61,16 @@ class User extends Authenticatable
     {
         return $this->teams()->where('team_id', $team->id)->exists();
     }
-    
+
     // NEW: Helper method to get user's role in a team
     public function getRoleIn(Team $team): ?string
     {
         $teamUser = $this->teams()->where('team_id', $team->id)->first();
+
         return $teamUser ? $teamUser->pivot->role : null;
     }
 
-    public function tasks() : HasMany
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }
@@ -78,7 +80,7 @@ class User extends Authenticatable
         return $this->hasMany(Team::class, 'user_id');
     }
 
-     public function owns(Team $team): bool
+    public function owns(Team $team): bool
     {
         return $this->id === $team->user_id;
     }

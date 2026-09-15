@@ -18,11 +18,11 @@ export interface Team {
     user_id: number; // Owner's ID
     created_at: string;
     updated_at: string;
-    
+
     // These come from withCount() in the controller
     projects_count?: number;
     users_count?: number;
-    
+
     // These come from with() in the controller
     owner?: User;
     users?: TeamMember[];
@@ -35,7 +35,7 @@ export interface Project {
     team_id: number;
     created_at: string;
     updated_at: string;
-    
+
     tasks?: Task[];
 }
 
@@ -49,7 +49,7 @@ export interface Task {
     user_id: number;
     created_at: string;
     updated_at: string;
-    
+
     user?: User;
     project?: Project;
 }
@@ -70,7 +70,7 @@ export interface TeamShowProps {
 // Type for form data
 export type TeamFormData = {
     name: string;
-}
+};
 
 // Type guard to check if a user has a role
 export type TeamRole = 'admin' | 'member';
@@ -93,7 +93,7 @@ export interface AvailableUser {
 export type AddMemberFormData = {
     user_id: number | null;
     role: TeamRole;
-}
+};
 
 export interface ChangeRoleFormData {
     role: TeamRole;

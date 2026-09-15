@@ -44,7 +44,7 @@ class TeamService
             return;
         }
 
-        if (!in_array($role, ['admin', 'member'], true)) {
+        if (! in_array($role, ['admin', 'member'], true)) {
             throw new \InvalidArgumentException(
                 'Invalid team role.'
             );
@@ -70,7 +70,7 @@ class TeamService
         }
 
         // The target must actually be a member.
-        if (!$team->hasUser($user)) {
+        if (! $team->hasUser($user)) {
             throw new \DomainException(
                 'User is not a member of this team.'
             );
@@ -109,14 +109,14 @@ class TeamService
         }
 
         // Target must be a team member.
-        if (!$team->hasUser($user)) {
+        if (! $team->hasUser($user)) {
             throw new \DomainException(
                 'User is not a member of this team.'
             );
         }
 
         // Only these roles are allowed.
-        if (!in_array($newRole, ['admin', 'member'], true)) {
+        if (! in_array($newRole, ['admin', 'member'], true)) {
             throw new \InvalidArgumentException(
                 'Invalid team role.'
             );

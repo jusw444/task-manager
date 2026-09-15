@@ -14,8 +14,7 @@ class TeamController extends Controller
 {
     public function __construct(
         protected TeamService $teamService
-    ) {
-    }
+    ) {}
 
     /**
      * Display all teams the authenticated user belongs to.
@@ -48,7 +47,7 @@ class TeamController extends Controller
         /*
          * Only team members can view the team.
          */
-        if (!$team->hasUser($user)) {
+        if (! $team->hasUser($user)) {
             abort(
                 403,
                 'You do not have access to this team.'
@@ -78,7 +77,7 @@ class TeamController extends Controller
             'userRole' => $userRole,
             'canManage' => $this->teamService
                 ->canManageTeam($team, $user),
-                'isOwner' => $team->isOwner($user),
+            'isOwner' => $team->isOwner($user),
         ]);
     }
 
@@ -126,7 +125,7 @@ class TeamController extends Controller
     ): Response {
         $user = $request->user();
 
-        if (!$this->teamService->canManageTeam(
+        if (! $this->teamService->canManageTeam(
             $team,
             $user
         )) {
@@ -150,7 +149,7 @@ class TeamController extends Controller
     ) {
         $user = $request->user();
 
-        if (!$this->teamService->canManageTeam(
+        if (! $this->teamService->canManageTeam(
             $team,
             $user
         )) {
@@ -165,7 +164,7 @@ class TeamController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'unique:teams,name,' . $team->id,
+                'unique:teams,name,'.$team->id,
             ],
         ]);
 
@@ -192,7 +191,7 @@ class TeamController extends Controller
     ) {
         $user = $request->user();
 
-        if (!$team->isOwner($user)) {
+        if (! $team->isOwner($user)) {
             abort(
                 403,
                 'Only the team owner can delete this team.'
@@ -218,7 +217,7 @@ class TeamController extends Controller
     ): JsonResponse {
         $user = $request->user();
 
-        if (!$this->teamService->canManageMembers(
+        if (! $this->teamService->canManageMembers(
             $team,
             $user
         )) {
@@ -253,7 +252,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (!$this->teamService->canManageMembers(
+        if (! $this->teamService->canManageMembers(
             $team,
             $currentUser
         )) {
@@ -307,7 +306,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (!$this->teamService->canManageMembers(
+        if (! $this->teamService->canManageMembers(
             $team,
             $currentUser
         )) {
@@ -355,7 +354,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (!$this->teamService->canManageMembers(
+        if (! $this->teamService->canManageMembers(
             $team,
             $currentUser
         )) {
@@ -379,8 +378,8 @@ class TeamController extends Controller
                 $validated['role']
             );
         } catch (
-            \DomainException |
-            \InvalidArgumentException |
+            \DomainException|
+            \InvalidArgumentException|
             \RuntimeException $e
         ) {
             return back()->with(

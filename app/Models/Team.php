@@ -14,19 +14,19 @@ class Team extends Model
 
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
     ];
 
-    public function projects() : HasMany
+    public function projects(): HasMany
     {
         return $this->hasMany(Project::class);
     }
 
-    public function users() : BelongsToMany
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class)
-                    ->withPivot('role')
-                    ->withTimestamps();
+            ->withPivot('role')
+            ->withTimestamps();
     }
 
     public function owner(): BelongsTo
@@ -38,11 +38,11 @@ class Team extends Model
      * Check if a user is a member of this team
      */
     public function hasUser(User $user): bool
-{
-    return $this->users()
-        ->where('users.id', $user->id)
-        ->exists();
-}
+    {
+        return $this->users()
+            ->where('users.id', $user->id)
+            ->exists();
+    }
 
     /**
      * Check if a user is the owner of this team

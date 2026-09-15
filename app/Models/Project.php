@@ -16,12 +16,12 @@ class Project extends Model
         'team_id',
     ];
 
-    public function team() : BelongsTo
+    public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);
     }
 
-    public function tasks() : HasMany
+    public function tasks(): HasMany
     {
         return $this->hasMany(Task::class);
     }

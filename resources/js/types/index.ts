@@ -95,7 +95,7 @@ declare global {
         Laravel: {
             user: User;
             csrfToken: string;
-            route: (name: string, parameters?: any) => string;
+            route: (name: string, parameters?: unknown) => string;
         };
     }
 }

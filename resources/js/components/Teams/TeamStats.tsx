@@ -22,11 +22,7 @@ const stats = [
     },
 ] as const;
 
-export default function TeamStats({
-    totalTeams,
-    totalMembers,
-    totalProjects,
-}: TeamStatsProps) {
+export default function TeamStats({ totalTeams, totalMembers, totalProjects }: TeamStatsProps) {
     const values = {
         teams: totalTeams,
         members: totalMembers,
@@ -50,13 +46,9 @@ export default function TeamStats({
                             </div>
 
                             <div className="min-w-0">
-                                <p className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                    {values[stat.key]}
-                                </p>
+                                <p className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{values[stat.key]}</p>
 
-                                <p className="text-sm text-gray-500 dark:text-gray-400">
-                                    {stat.label}
-                                </p>
+                                <p className="text-sm text-gray-500 dark:text-gray-400">{stat.label}</p>
                             </div>
                         </div>
                     </div>

@@ -1,19 +1,11 @@
-import { Link } from '@inertiajs/react';
 import { Team } from '@/types/team';
+import { Link } from '@inertiajs/react';
 
 interface TeamCardProps {
     team: Team;
 }
 
-const avatarColors = [
-    'bg-blue-600',
-    'bg-green-600',
-    'bg-purple-600',
-    'bg-pink-600',
-    'bg-yellow-600',
-    'bg-red-600',
-    'bg-indigo-600',
-] as const;
+const avatarColors = ['bg-blue-600', 'bg-green-600', 'bg-purple-600', 'bg-pink-600', 'bg-yellow-600', 'bg-red-600', 'bg-indigo-600'] as const;
 
 export default function TeamCard({ team }: TeamCardProps) {
     const memberCount = team.users_count ?? 0;
@@ -32,7 +24,7 @@ export default function TeamCard({ team }: TeamCardProps) {
     return (
         <Link
             href={route('teams.show', team.id)}
-            className="group block rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900"
+            className="group block rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none dark:focus:ring-offset-gray-900"
         >
             <article className="h-full overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all duration-200 group-hover:-translate-y-0.5 group-hover:shadow-md dark:border-gray-700 dark:bg-gray-800">
                 <div className="p-5 sm:p-6">
@@ -54,13 +46,7 @@ export default function TeamCard({ team }: TeamCardProps) {
                             {/* Team metadata */}
                             <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
                                 <div className="flex items-center">
-                                    <svg
-                                        className="mr-1.5 h-4 w-4 shrink-0"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                    >
+                                    <svg className="mr-1.5 h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
@@ -76,13 +62,7 @@ export default function TeamCard({ team }: TeamCardProps) {
                                 </div>
 
                                 <div className="flex items-center">
-                                    <svg
-                                        className="mr-1.5 h-4 w-4 shrink-0"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        aria-hidden="true"
-                                    >
+                                    <svg className="mr-1.5 h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                         <path
                                             strokeLinecap="round"
                                             strokeLinejoin="round"
@@ -99,10 +79,7 @@ export default function TeamCard({ team }: TeamCardProps) {
                             </div>
 
                             {/* Created date */}
-                            <p className="mt-3 text-xs text-gray-400 dark:text-gray-500">
-                                Created{' '}
-                                {new Date(team.created_at).toLocaleDateString()}
-                            </p>
+                            <p className="mt-3 text-xs text-gray-400 dark:text-gray-500">Created {new Date(team.created_at).toLocaleDateString()}</p>
                         </div>
                     </div>
                 </div>
