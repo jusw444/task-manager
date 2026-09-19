@@ -1,0 +1,39 @@
+services:
+  app:
+    build:
+      context: .
+      target: app
+    image: ${APP_IMAGE}
+    restart: unless-stopped
+
+    env_file:
+      - .env.production
+
+  nginx:
+    build:
+      context: .
+      target: nginx
+    image: ${NGINX_IMAGE}
+    restart: unless-stopped
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - app
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+
+    environment:
+      MYSQL_DATABASE: task-manager
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: task_manager
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
