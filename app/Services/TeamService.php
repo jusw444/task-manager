@@ -231,20 +231,4 @@ class TeamService
                 'email',
             ]);
     }
-
-    /**
-     * Check whether a user can manage team members.
-     *
-     * Owner OR admin.
-     */
-    public function canManageMembers(
-        Team $team,
-        User $user
-    ): bool {
-        if ($team->isOwner($user)) {
-            return true;
-        }
-
-        return $user->getRoleIn($team) === 'admin';
-    }
 }

@@ -47,12 +47,7 @@ class TeamController extends Controller
         /*
          * Only team members can view the team.
          */
-        if (! $team->hasUser($user)) {
-            abort(
-                403,
-                'You do not have access to this team.'
-            );
-        }
+        $this->authorize('view', $team);
 
         /*
          * Load everything needed by the Show page.
@@ -86,6 +81,8 @@ class TeamController extends Controller
      */
     public function create(): Response
     {
+        $this->authorize('create', Team::class);
+
         return Inertia::render('Teams/Create');
     }
 
@@ -94,6 +91,7 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Team::class);
         $validated = $request->validate([
             'name' => [
                 'required',
@@ -125,15 +123,7 @@ class TeamController extends Controller
     ): Response {
         $user = $request->user();
 
-        if (! $this->teamService->canManageTeam(
-            $team,
-            $user
-        )) {
-            abort(
-                403,
-                'You do not have permission to edit this team.'
-            );
-        }
+        $this->authorize('update', $team);
 
         return Inertia::render('Teams/Edit', [
             'team' => $team,
@@ -149,15 +139,7 @@ class TeamController extends Controller
     ) {
         $user = $request->user();
 
-        if (! $this->teamService->canManageTeam(
-            $team,
-            $user
-        )) {
-            abort(
-                403,
-                'You do not have permission to update this team.'
-            );
-        }
+        $this->authorize('update', $team);
 
         $validated = $request->validate([
             'name' => [
@@ -191,12 +173,7 @@ class TeamController extends Controller
     ) {
         $user = $request->user();
 
-        if (! $team->isOwner($user)) {
-            abort(
-                403,
-                'Only the team owner can delete this team.'
-            );
-        }
+        $this->authorize('delete', $team);
 
         $team->delete();
 
@@ -217,15 +194,7 @@ class TeamController extends Controller
     ): JsonResponse {
         $user = $request->user();
 
-        if (! $this->teamService->canManageMembers(
-            $team,
-            $user
-        )) {
-            return response()->json(
-                ['error' => 'Unauthorized'],
-                403
-            );
-        }
+        $this->authorize('manageMembers', $team);
 
         $search = $request->query('search');
 
@@ -252,15 +221,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (! $this->teamService->canManageMembers(
-            $team,
-            $currentUser
-        )) {
-            abort(
-                403,
-                'You do not have permission to add members.'
-            );
-        }
+        $this->authorize('manageMembers', $team);
 
         $validated = $request->validate([
             'user_id' => [
@@ -306,15 +267,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (! $this->teamService->canManageMembers(
-            $team,
-            $currentUser
-        )) {
-            abort(
-                403,
-                'You do not have permission to remove members.'
-            );
-        }
+        $this->authorize('manageMembers', $team);
 
         /*
          * Don't allow a manager to remove themselves.
@@ -354,15 +307,7 @@ class TeamController extends Controller
     ) {
         $currentUser = $request->user();
 
-        if (! $this->teamService->canManageMembers(
-            $team,
-            $currentUser
-        )) {
-            abort(
-                403,
-                'You do not have permission to change roles.'
-            );
-        }
+        $this->authorize('manageMembers', $team);
 
         $validated = $request->validate([
             'role' => [
